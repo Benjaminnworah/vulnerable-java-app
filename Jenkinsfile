@@ -2,10 +2,6 @@ pipeline {
 
     agent any
 
-    tools {
-        dependencyCheck 'dependency-check'
-    }
-
     stages {
 
         stage('Checkout') {
