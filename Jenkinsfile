@@ -14,6 +14,12 @@ pipeline {
             }
         }
 
+        stage('Build Maven Dependencies') {
+            steps {
+                sh 'mvn clean install -DskipTests'
+            }
+        }
+
         stage('Dependency Scan') {
             steps {
 
