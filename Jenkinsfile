@@ -2,6 +2,10 @@ pipeline {
 
     agent any
 
+    environment {
+        NVD_API_KEY = credentials('nvd-api-key')
+    }
+
     stages {
 
         stage('Checkout') {
@@ -13,7 +17,12 @@ pipeline {
         stage('Dependency Scan') {
             steps {
 
-                dependencyCheck additionalArguments: '--scan . --format XML',
+                dependencyCheck additionalArguments: """
+                    --scan .
+                    --format XML
+                    --nvdApiKey ${NVD_API_KEY}
+                    --disableKnownExploited
+                """,
                 odcInstallation: 'dependency-check'
             }
         }
