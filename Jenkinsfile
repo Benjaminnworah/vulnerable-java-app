@@ -24,8 +24,12 @@ pipeline {
             steps {
 
                 dependencyCheck additionalArguments: """
+                    --project vulnerable-java-app
                     --scan .
+                    --scan /var/lib/jenkins/.m2
                     --format XML
+                    --format HTML
+                    --enableExperimental
                     --nvdApiKey ${NVD_API_KEY}
                     --disableKnownExploited
                 """,
